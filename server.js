@@ -8,6 +8,7 @@ const User = require('./models/User');
 // Bring in graphql middleware
 const { graphiqlExpress, graphqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
+
 const { typeDefs } = require('./schema');
 const { resolvers } = require('./resolvers');
 
@@ -29,18 +30,21 @@ mongoose
 const app = express();
 
 // create graphql application
-app.use('/graphiql', graphiqlExpress({ endpointURL: 'graphql' }
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }
 ))
 
 // connect schemas with graphql
-app.use('graphql', graphqlExpress({
-  schema,
-  context: {
-    Recipe,
-    User
-  }
+app.use(
+  '/graphql',
+  bodyParser.json(),
+  graphqlExpress({
+    schema,
+    context: {
+      Recipe,
+      User
+    }
 
-}));
+  }));
 
 const PORT = process.env.PORT || 4444;
 
