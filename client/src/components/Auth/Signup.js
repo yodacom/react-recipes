@@ -15,6 +15,10 @@ const initialState = {
 class Signup extends React.Component {
   state = { ...initialState };
 
+  clearState = () => {
+    this.setState({ ...initialState });
+  };
+
   handleChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
@@ -24,6 +28,7 @@ class Signup extends React.Component {
     event.preventDefault();
     signupUser().then(data => {
       console.log(data);
+      this.clearState();
     });
   };
 
