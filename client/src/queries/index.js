@@ -1,4 +1,6 @@
-import { gql } from 'apollo-boost';
+import { gql } from "apollo-boost";
+
+/* Recipes Queries */
 
 export const GET_ALL_RECIPES = gql`
   query {
@@ -9,7 +11,20 @@ export const GET_ALL_RECIPES = gql`
       category
       likes
       createdDate
+    }
+  }
+`;
 
+/* Recipes Mutations */
+
+/* User Queries */
+
+/* User Mutations */
+
+export const SIGNUP_USER = gql`
+  mutation($username: String!, $email: String!, $password: String!) {
+    signupUser(username: $username, email: $email, password: $password) {
+      token
     }
   }
 `;
