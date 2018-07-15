@@ -2,7 +2,6 @@ import React from "react";
 import { Mutation } from "react-apollo";
 
 import Error from "../Error";
-
 import { SIGNUP_USER } from "../../queries";
 
 const initialState = {
@@ -30,6 +29,13 @@ class Signup extends React.Component {
       console.log(data);
       this.clearState();
     });
+  };
+
+  validateForm = () => {
+    const { username, email, password, passwordConfirmation } = this.state;
+    const isInvalid =
+      !username || !email || !password || password !== passwordConfirmation;
+    return isInvalid;
   };
 
   render() {
@@ -79,7 +85,11 @@ class Signup extends React.Component {
                   onChange={this.handleChange}
                 />
 
-                <button type="submit" className="button-primary">
+                <button
+                  type="submit"
+                  disabled={loading || this.validateForm()}
+                  className="button-primary"
+                >
                   Submit
                 </button>
                 {error && <Error error={error} />}
